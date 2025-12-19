@@ -1,13 +1,11 @@
 import { Header } from './components/Header'
 import { Hero } from './sections/Hero'
-import { ProcureToPay } from './sections/ProcureToPay'
-import { OrderToCash } from './sections/OrderToCash'
+import { MythsVsReality } from './sections/MythsVsReality'
+import IndustryShowcaseSection from './sections/industryshowcase'
+import { BusinessProcesses } from './sections/BusinessProcesses'
 import { Implementation } from './sections/Implementation'
-import { ERPStats } from './sections/ERPStats'
 import { ROICalculator } from './sections/ROICalculator'
-import { ERPQuiz } from './sections/ERPQuiz'
 import { DownloadResources } from './sections/DownloadResources'
-import { UseCases } from './sections/UseCases'
 import { Footer } from './components/Footer'
 
 function App() {
@@ -16,14 +14,12 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <ProcureToPay />
-        <OrderToCash />
+        <MythsVsReality />
+        <IndustryShowcaseSection />
+        <BusinessProcesses />
         <Implementation />
-        <ERPStats />
         <ROICalculator />
-        <ERPQuiz />
         <DownloadResources />
-        <UseCases />
       </main>
       <Footer />
     </div>

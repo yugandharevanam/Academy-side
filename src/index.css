@@ -46,4 +46,35 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-secondary;
   }
+
+  /* Split Text Animation Styles */
+  .split-parent {
+    overflow: visible !important;
+  }
+
+  .split-line,
+  .split-word,
+  .split-char {
+    display: inline-block;
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+
+  .split-word {
+    white-space: nowrap;
+    margin-right: 0.25em;
+  }
+
+  .split-char {
+    position: relative;
+  }
+
+  /* Smooth animation performance */
+  .split-line,
+  .split-word,
+  .split-char {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
