@@ -1,9 +1,23 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChartBarIcon, ClockIcon, ShieldCheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Card } from '../components/Card'
 import backgroundVideo from '../assets/background.mp4'
 
 export const Hero = () => {
+  const [videoSrc, setVideoSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Delay video download until after initial paint to improve hero load time.
+    const timeout = window.setTimeout(() => {
+      setVideoSrc(backgroundVideo)
+    }, 150)
+
+    return () => {
+      window.clearTimeout(timeout)
+    }
+  }, [])
+
   const scrollToNext = () => {
     document.getElementById('p2p')?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -35,9 +49,10 @@ export const Hero = () => {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
         >
-          <source src={backgroundVideo} type="video/mp4" />
+          {videoSrc && <source src={videoSrc} type="video/mp4" />}
         </video>
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/75 via-gray-900/70 to-green-900/75"></div>
