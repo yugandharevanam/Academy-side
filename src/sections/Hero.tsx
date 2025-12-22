@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChartBarIcon, ClockIcon, ShieldCheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
-import backgroundVideo from '../assets/background.mp4'
 import SplitText from '../Animation/Split_Text'
+import LiquidEther from '../Animation/LiquidEther'
+import TypewriterText from '../Animation/TypewriterText'
+import MagneticButton from '../Animation/MagneticButton'
+import FloatingCard from '../Animation/FloatingCard'
 
 export const Hero = () => {
-  const [videoSrc, setVideoSrc] = useState<string | null>(null)
-
-  useEffect(() => {
-    // Delay video download until after initial paint to improve hero load time.
-    const timeout = window.setTimeout(() => {
-      setVideoSrc(backgroundVideo)
-    }, 150)
-
-    return () => {
-      window.clearTimeout(timeout)
-    }
-  }, [])
 
   const scrollToNext = () => {
     document.getElementById('myths')?.scrollIntoView({ behavior: 'smooth' })
@@ -41,20 +31,28 @@ export const Hero = () => {
   ]
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-        >
-          {videoSrc && <source src={videoSrc} type="video/mp4" />}
-        </video>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
+      {/* Liquid Ether Background with Mouse Interaction */}
+      <div className="absolute inset-0 w-full h-full" style={{ position: 'absolute', width: '100%', height: '100%' }}>
+        <LiquidEther
+          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
         {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-slate-950/40 pointer-events-none" />
       </div>
 
       {/* Content */}
@@ -78,48 +76,48 @@ export const Hero = () => {
             />
           </div>
 
-          {/* Subheadline */}
-          <div className="mb-8 sm:mb-10">
-            <SplitText
-              text="Automate operations. Never miss a sale. Boost revenue by 40%."
-              tag="p"
+          {/* Subheadline with Typewriter */}
+          <div className="mb-8 sm:mb-10 min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
+            <TypewriterText
+              text={[
+                "Automate operations. Never miss a sale.",
+                "Boost revenue by 40%. Reduce costs by 70%.",
+                "One integrated system for your entire business."
+              ]}
+              typingSpeed={80}
+              deletingSpeed={50}
+              delayBetweenTexts={3000}
+              loop={true}
+              cursor={true}
+              cursorChar="|"
               className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-medium drop-shadow-lg"
-              delay={30}
-              duration={0.6}
-              ease="power2.out"
-              splitType="words"
-              from={{ opacity: 0, y: 30 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-60px"
-              textAlign="center"
             />
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons with Magnetic Effect */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12 sm:mb-14"
           >
-            <button
+            <MagneticButton
+              strength={0.4}
               onClick={scrollToNext}
-              className="bg-white text-slate-900 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105 shadow-2xl text-base"
+              className="bg-white text-slate-900 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-2xl text-base"
             >
               Explore Solutions
-            </button>
-            <a
-              href="https://www.evanam.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105 backdrop-blur-sm text-base"
+            </MagneticButton>
+            <MagneticButton
+              strength={0.4}
+              onClick={() => window.open('https://www.evanam.com', '_blank')}
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 font-bold py-3 px-8 rounded-full backdrop-blur-sm text-base"
             >
               Get Free Demo
-            </a>
+            </MagneticButton>
           </motion.div>
 
-          {/* Benefit Cards - Compact */}
+          {/* Benefit Cards with Floating Animation */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -127,19 +125,26 @@ export const Hero = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto"
           >
             {benefits.map((benefit, index) => (
-              <motion.div
+              <FloatingCard
                 key={benefit.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 hover:bg-white/20 transition-all duration-300 hover:scale-105"
+                floatIntensity={15}
+                duration={3 + index * 0.5}
+                delay={index * 0.2}
+                hoverEffect={true}
+                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 shadow-lg"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="text-white">{benefit.icon}</div>
-                  <h3 className="font-bold text-white text-base">{benefit.title}</h3>
-                </div>
-                <p className="text-sm text-white/80">{benefit.description}</p>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="text-white">{benefit.icon}</div>
+                    <h3 className="font-bold text-white text-base">{benefit.title}</h3>
+                  </div>
+                  <p className="text-sm text-white/80">{benefit.description}</p>
+                </motion.div>
+              </FloatingCard>
             ))}
           </motion.div>
 

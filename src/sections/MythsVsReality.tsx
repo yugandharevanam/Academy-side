@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import ParticleField from '../Animation/ParticleField'
+import ShimmerButton from '../Animation/ShimmerButton'
 
 const myths = [
   {
@@ -36,8 +38,19 @@ const myths = [
 
 export const MythsVsReality = () => {
   return (
-    <section id="myths" className="py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-6xl mx-auto px-4">
+    <section id="myths" className="relative py-20 lg:py-32 bg-slate-950 overflow-hidden">
+      {/* Particle Field Background */}
+      <ParticleField
+        particleCount={60}
+        particleColor="rgba(139, 92, 246, 0.6)"
+        lineColor="rgba(139, 92, 246, 0.2)"
+        particleSize={2}
+        maxDistance={120}
+        speed={0.3}
+        className="opacity-40"
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -45,13 +58,13 @@ export const MythsVsReality = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-100 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
-              <span className="text-red-700">Common Misconceptions</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-full text-xs font-semibold tracking-widest uppercase mb-4">
+              <span className="text-red-400">Common Misconceptions</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Myths vs Reality
             </h2>
-            <p className="text-slate-600 max-w-3xl mx-auto text-lg">
+            <p className="text-slate-300 max-w-3xl mx-auto text-lg">
               Let's clear up the biggest misconceptions about integrated business systems in the Indian market
             </p>
           </motion.div>
@@ -65,27 +78,27 @@ export const MythsVsReality = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow"
+              className="bg-slate-800/50 backdrop-blur-md rounded-2xl shadow-lg border border-slate-700/50 overflow-hidden hover:shadow-2xl hover:border-purple-500/50 transition-all"
             >
               <div className="p-6">
                 <div className="text-4xl mb-4">{item.icon}</div>
 
                 {/* Myth */}
-                <div className="mb-4 pb-4 border-b border-red-100">
+                <div className="mb-4 pb-4 border-b border-red-500/20">
                   <div className="flex items-start gap-2 mb-2">
-                    <XCircleIcon className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs font-semibold text-red-600 uppercase tracking-wide">Myth</div>
+                    <XCircleIcon className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs font-semibold text-red-400 uppercase tracking-wide">Myth</div>
                   </div>
-                  <p className="text-sm text-slate-700 italic">"{item.myth}"</p>
+                  <p className="text-sm text-slate-300 italic">"{item.myth}"</p>
                 </div>
 
                 {/* Reality */}
                 <div>
                   <div className="flex items-start gap-2 mb-2">
-                    <CheckCircleIcon className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-xs font-semibold text-emerald-600 uppercase tracking-wide">Reality</div>
+                    <CheckCircleIcon className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wide">Reality</div>
                   </div>
-                  <p className="text-sm text-slate-900 font-medium">{item.reality}</p>
+                  <p className="text-sm text-white font-medium">{item.reality}</p>
                 </div>
               </div>
             </motion.div>
@@ -98,29 +111,33 @@ export const MythsVsReality = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16 text-center bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-3xl p-8 sm:p-12 shadow-2xl"
+          className="mt-16 text-center bg-gradient-to-r from-purple-900/50 to-emerald-900/50 backdrop-blur-md border border-purple-500/30 rounded-3xl p-8 sm:p-12 shadow-2xl"
         >
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
             Still Have Questions?
           </h3>
-          <p className="text-emerald-50 mb-6 max-w-2xl mx-auto">
+          <p className="text-slate-200 mb-6 max-w-2xl mx-auto">
             Get a free consultation with Evanam experts. We'll show you exactly how integrated systems can boost your revenue.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://www.evanam.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+            <ShimmerButton
+              background="linear-gradient(135deg, #10B981 0%, #059669 100%)"
+              shimmerColor="rgba(255, 255, 255, 0.6)"
+              shimmerDuration="2s"
+              onClick={() => window.open('https://www.evanam.com', '_blank')}
+              className="px-8 py-3 text-white font-bold rounded-full shadow-lg text-base"
             >
               Schedule Free Consultation
-            </a>
-            <button
+            </ShimmerButton>
+            <ShimmerButton
+              background="linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)"
+              shimmerColor="rgba(255, 255, 255, 0.6)"
+              shimmerDuration="2.5s"
               onClick={() => document.getElementById('roi-calculator')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-block bg-transparent border-2 border-white text-white hover:bg-white/10 font-semibold py-3 px-8 rounded-lg transition-all duration-300"
+              className="px-8 py-3 text-white font-bold rounded-full shadow-lg text-base"
             >
               Calculate Your ROI
-            </button>
+            </ShimmerButton>
           </div>
         </motion.div>
       </div>

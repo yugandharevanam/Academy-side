@@ -8,6 +8,7 @@ import {
   ClipboardDocumentCheckIcon,
   BookOpenIcon
 } from '@heroicons/react/24/outline'
+import ShimmerButton from '../Animation/ShimmerButton'
 
 interface Resource {
   title: string
@@ -154,15 +155,17 @@ export const DownloadResources = () => {
                   <span>{resource.pages}</span>
                 </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <ShimmerButton
+                  background="linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)"
+                  shimmerColor="rgba(255, 255, 255, 0.6)"
+                  shimmerDuration="2s"
+                  borderRadius="0.75rem"
                   onClick={() => handleDownload(resource.title)}
-                  className="w-full bg-brand-primary hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="w-full text-white font-semibold py-3 px-4 flex items-center justify-center gap-2"
                 >
                   <DocumentArrowDownIcon className="w-5 h-5" />
                   Download Free
-                </motion.button>
+                </ShimmerButton>
               </div>
             </motion.div>
           )
@@ -183,14 +186,16 @@ export const DownloadResources = () => {
           <p className="text-gray-600 mb-6">
             Evanam Consulting offers tailored ERP training programs for teams and organizations
           </p>
-          <a
-            href="https://www.evanam.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-brand-primary hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+          <ShimmerButton
+            background="linear-gradient(135deg, #10B981 0%, #059669 100%)"
+            shimmerColor="rgba(255, 255, 255, 0.7)"
+            shimmerDuration="2.5s"
+            borderRadius="0.5rem"
+            onClick={() => window.open('https://www.evanam.com', '_blank')}
+            className="inline-block text-white font-bold py-3 px-8 shadow-lg"
           >
             Request Custom Training
-          </a>
+          </ShimmerButton>
         </div>
       </motion.div>
     </SectionContainer>
