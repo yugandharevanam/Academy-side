@@ -6,11 +6,47 @@ import evanamLogo from '../assets/Evanam Logo.png'
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [currentSection, setCurrentSection] = useState('hero')
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      // Detect current section in viewport - ALL sections in the app
+      const sections = [
+        'hero',
+        'myths',
+        'industry-showcase',
+        'business-processes',
+        'implementation',
+        'roi-calculator',
+        'download-resources',
+        'p2p',
+        'o2c',
+        'use-cases'
+      ]
+      let current = 'hero'
+
+      // Find the section that occupies most of the viewport
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          // Check if the header is overlapping with this section
+          // Header is at top, so check if section covers the header area (0-80px)
+          if (rect.top <= 80 && rect.bottom >= 80) {
+            current = sectionId
+            break
+          }
+        }
+      }
+
+      setCurrentSection(current)
+
+      // ONLY hero and myths sections have transparent nav, all others are white
+      const shouldBeTransparent = current === 'hero' || current === 'myths'
+      setIsScrolled(!shouldBeTransparent)
     }
+
+    handleScroll() // Call once on mount
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
